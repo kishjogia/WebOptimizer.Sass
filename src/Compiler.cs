@@ -12,7 +12,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Caching.Memory;
 using DartSassHost;
-using JavaScriptEngineSwitcher.ChakraCore;
+//using JavaScriptEngineSwitcher.ChakraCore;
+using JavaScriptEngineSwitcher.V8;
 
 namespace WebOptimizer.Sass
 {
@@ -74,7 +75,7 @@ namespace WebOptimizer.Sass
                 //settings.TryImport = options.TryImport;
             }
 
-            using (var sassCompiler = new SassCompiler(new ChakraCoreJsEngineFactory(), settings))
+            using (var sassCompiler = new SassCompiler(new V8JsEngineFactory(), settings))
             {
                 foreach (string route in context.Content.Keys)
                 {
@@ -87,6 +88,7 @@ namespace WebOptimizer.Sass
                     }
                     else
                     {
+                        //result = sassCompiler.Compile(context.Content[route].AsString(),);
                         result = sassCompiler.Compile(context.Content[route].AsString(), options?.IsIndentedSyntaxSource ?? false);
                     }
 
